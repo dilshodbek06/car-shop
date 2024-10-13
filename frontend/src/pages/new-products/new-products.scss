@@ -1,0 +1,51 @@
+$phone_screen: 375px;
+$tablet_screen: 700px;
+
+@mixin media($max_width) {
+  @media (max-width: $max_width) {
+    @content;
+  }
+}
+
+.my-newProducts {
+  margin-top: 100px;
+  @include media($tablet_screen) {
+    margin-top: 20px;
+  }
+  @include media(450px) {
+    padding-bottom: 70px;
+  }
+  .container {
+    padding: 10px 10px;
+    max-width: 1150px;
+    margin: 0 auto;
+    .title {
+      font-size: 26px;
+      font-weight: 600;
+      color: rgba(39, 35, 67, 1);
+    }
+    .products-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      gap: 40px;
+      @include media(1030px) {
+        grid-template-columns: auto auto auto;
+      }
+      @include media($tablet_screen) {
+        grid-template-columns: auto auto;
+      }
+      @include media(450px) {
+        margin-top: 16px;
+        gap: 15px;
+      }
+    }
+  }
+  .phone-navigation-father {
+    display: none;
+    margin-top: 15px;
+    @include media(450px) {
+      display: block;
+    }
+  }
+}

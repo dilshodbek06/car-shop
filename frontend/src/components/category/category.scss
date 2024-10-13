@@ -1,0 +1,60 @@
+$phone_screen: 375px;
+$tablet_screen: 700px;
+
+@mixin media($max_width) {
+  @media (max-width: $max_width) {
+    @content;
+  }
+}
+
+.my-category {
+  max-width: 270px;
+  width: 100%;
+  min-height: 270px;
+  background-color: rgba(240, 242, 243, 1);
+  border-radius: 10px;
+  @include media(450px) {
+    max-width: 192px;
+    border-radius: 8px;
+  }
+  .card-body {
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 45px;
+    @include media(450px) {
+      height: 220px;
+    }
+
+    img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      @include media(450px) {
+        width: 140px;
+        height: 140px;
+      }
+    }
+  }
+  .card-footer {
+    height: 65px;
+    border-radius: 0 0 10px 10px;
+    background-color: rgba(225, 227, 229, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include media(450px) {
+      height: 55px;
+    }
+    h5 {
+      color: rgba(39, 35, 67, 1);
+      font-size: 20px;
+      font-weight: 500;
+      @include media(450px) {
+        font-size: 15px;
+      }
+    }
+  }
+}

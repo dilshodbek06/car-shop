@@ -1,0 +1,96 @@
+$phone_screen: 375px;
+$tablet_screen: 700px;
+
+@mixin media($max_width) {
+  @media (max-width: $max_width) {
+    @content;
+  }
+}
+
+.my-phone-product {
+  max-width: 192px; // uzim uzgartirdim
+  width: 100%;
+  min-height: 294px;
+  background-color: rgba(240, 242, 243, 1);
+  border-radius: 8px;
+  padding: 16px 8px 10px 8px;
+  display: none;
+  @include media(450px) {
+    display: block;
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    padding-right: 5px;
+
+    .term-outer {
+      width: 43px;
+      height: 20px;
+      border-radius: 4px;
+      background-color: rgba(45, 204, 112, 1);
+      color: white;
+      font-weight: 500;
+      font-size: 13px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .add-to-wishlist {
+      cursor: pointer;
+      color: rgba(141, 144, 155, 1);
+      width: 22px;
+      height: 22px;
+    }
+  }
+  .card-body {
+    max-width: 110px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .card-footer {
+    h2 {
+      font-weight: 400;
+      color: rgba(0, 0, 0, 1);
+      max-width: 214px;
+      width: 100%;
+      font-size: 12px;
+      margin-top: 15px;
+      line-height: 16px;
+    }
+    p {
+      color: rgba(166, 174, 191, 1);
+      font-weight: 500;
+      font-size: 10px;
+      margin-top: 4px;
+    }
+    .price {
+      color: rgba(14, 26, 35, 1);
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .add-btn {
+      // max-width: 148px;
+      height: 40px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 1);
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      margin-top: 10px;
+      color: rgba(117, 127, 150, 1);
+    }
+  }
+}

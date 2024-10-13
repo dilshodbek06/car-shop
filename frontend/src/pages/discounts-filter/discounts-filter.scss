@@ -1,0 +1,82 @@
+.my-discounts-filter {
+  margin-top: 84px;
+  .container {
+    padding: 0 10px;
+    max-width: 1150px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+
+    .filter-wrapper {
+      max-width: 315px;
+      width: 100%;
+      max-height: 446px;
+      background-color: rgba(240, 242, 243, 1);
+      border-radius: 20px;
+      padding: 24px;
+      h2 {
+        font-weight: 600;
+        font-size: 26px;
+        color: rgba(39, 35, 67, 1);
+      }
+      .filters-outer {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-items: center;
+        margin-top: 45px;
+      }
+      .buttons-wrapper {
+        margin-top: 100px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        user-select: none;
+        .clear-btn {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 10px 16px 9px 16px;
+          background-color: rgba(255, 255, 255, 1);
+          border-radius: 18px;
+          cursor: pointer;
+          border: none;
+          span {
+            color: rgba(39, 35, 67, 1);
+            font-size: 15px;
+            font-weight: 400;
+          }
+          .clear-icon {
+            width: 20px;
+            height: 20px;
+          }
+        }
+        .search-btn {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 10px 16px 9px 16px;
+          background-color: rgba(255, 80, 0, 1);
+          border-radius: 18px;
+          cursor: pointer;
+          border: none;
+          span {
+            color: rgba(255, 255, 255, 1);
+            font-size: 15px;
+            font-weight: 400;
+          }
+          .search-icon {
+            width: 20px;
+            height: 20px;
+            color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      gap: 40px 20px;
+    }
+  }
+}

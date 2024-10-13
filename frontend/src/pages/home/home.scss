@@ -1,0 +1,36 @@
+$phone_screen: 375px;
+$tablet_screen: 700px;
+
+@mixin media($max_width) {
+  @media (max-width: $max_width) {
+    @content;
+  }
+}
+
+.my-home {
+  @include media(450px) {
+    padding-bottom: 70px;
+  }
+  .top-products-father {
+    @include media($tablet_screen) {
+      margin-top: 20px !important;
+    }
+  }
+  .top-categories-father {
+    @include media(450px) {
+      margin-top: 20px !important;
+    }
+  }
+  .our-products-father {
+    @include media(450px) {
+      margin-top: 24px !important;
+    }
+  }
+  .phone-navigation-father {
+    display: none;
+    margin-top: 15px;
+    @include media(450px) {
+      display: block;
+    }
+  }
+}

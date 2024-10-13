@@ -1,0 +1,204 @@
+$phone_screen: 375px;
+$tablet_screen: 700px;
+
+@mixin media($max_width) {
+  @media (max-width: $max_width) {
+    @content;
+  }
+}
+
+.my-product-detail {
+  margin-top: 53px;
+  @include media(400px) {
+    margin-top: 20px;
+  }
+  @include media($phone_screen) {
+    margin-top: 20px;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-size: 20px !important;
+    }
+    p {
+      font-size: 14px !important;
+    }
+  }
+  .container {
+    padding: 0 10px;
+    max-width: 1150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    gap: 40px;
+    @include media(700px) {
+      flex-direction: column;
+      padding: 15px 10px;
+    }
+    @include media($phone_screen) {
+      padding: 0px 10px 10px 10px;
+      gap: 20px;
+    }
+    .image-wrapper {
+      max-width: 500px;
+      width: 100%;
+      height: 500px;
+      background-color: rgba(240, 242, 243, 1);
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include media(970px) {
+        max-width: 400px;
+        height: 400px;
+      }
+      @include media($phone_screen) {
+        height: 300px;
+        border-radius: 24px;
+      }
+      .image-father {
+        max-width: 350px;
+        width: 100%;
+        height: 350px;
+        @include media($phone_screen) {
+          max-width: 260px;
+          height: 260px;
+        }
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .details-wrapper {
+      .product-title {
+        font-weight: 500;
+        color: rgba(33, 33, 33, 1);
+        font-size: 36px;
+        max-width: 543px;
+        @include media(970px) {
+          font-size: 30px;
+        }
+      }
+      .product-desc {
+        font-weight: 300;
+        font-size: 18px;
+        color: rgba(154, 156, 170, 1);
+        max-width: 573px;
+        margin-top: 24px;
+        @include media($phone_screen) {
+          margin-top: 20px;
+        }
+      }
+      .quantity-wrapper {
+        margin-top: 75px;
+        display: flex;
+        align-items: center;
+        @include media(970px) {
+          margin-top: 50px;
+        }
+        @include media(400px) {
+          margin-top: 24px;
+        }
+        @include media($phone_screen) {
+          margin-top: 20px;
+        }
+        button {
+          width: 50px;
+          height: 50px;
+          color: rgba(39, 35, 67, 1);
+          font-size: 24px;
+          border: none;
+          cursor: pointer;
+          @include media($phone_screen) {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+          }
+        }
+        .minus-btn {
+          border-radius: 8px 0 0 8px;
+        }
+        .plus-btn {
+          border-radius: 0 8px 8px 0;
+        }
+        .number {
+          font-size: 24px;
+          font-weight: 400;
+          color: rgba(0, 0, 0, 1);
+          padding: 9px 24px 10px 24px;
+          border: 1px solid rgba(240, 242, 243, 1);
+          @include media($phone_screen) {
+            padding: 7px 24px 7px 24px;
+            font-size: 20px;
+          }
+        }
+      }
+      h2 {
+        margin-top: 32px;
+        font-weight: 600;
+        font-size: 40px;
+        color: rgba(0, 0, 0, 1);
+        @include media(970px) {
+          font-size: 25px;
+        }
+        @include media($phone_screen) {
+          margin-top: 20px;
+        }
+      }
+      .buttons-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-top: 40px;
+        @include media(970px) {
+          margin-top: 20px;
+        }
+        button {
+          border: none;
+          cursor: pointer;
+          font-size: 18px;
+          font-weight: 500;
+          border-radius: 8px;
+          @include media(970px) {
+            font-size: 14px;
+          }
+        }
+        .add-to-cart-btn {
+          background-color: rgba(255, 80, 0, 1);
+          max-width: 220px;
+          width: 100%;
+          height: 56px;
+          color: rgba(255, 255, 255, 1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 24px;
+          @include media(970px) {
+            gap: 10px;
+          }
+          @include media($phone_screen) {
+            max-width: 200px;
+            height: 40px;
+            img {
+              width: 26px;
+              height: 26px;
+            }
+          }
+        }
+        .buy-btn {
+          max-width: 337px;
+          width: 100%;
+          height: 56px;
+          @include media($phone_screen) {
+            max-width: 200px;
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+}
