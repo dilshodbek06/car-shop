@@ -1,21 +1,9 @@
 import { AiOutlineClose } from "react-icons/ai";
 import { GoPencil } from "react-icons/go";
 import photo from "../../../../images/category/image 21.svg";
-import { useEffect } from "react";
-import apiClient from "../../../../helpers/apiClient";
 import Badge from "../../components/badge";
 
-const CategoryList = () => {
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const res = await apiClient.get("/carPart");
-      console.log(res.data);
-
-      // setCategories(fetchedCategories);
-    };
-    fetchCategories();
-  }, []);
-
+const ProductList = () => {
   return (
     <div className="flex flex-col mt-2">
       <div className=" overflow-x-auto">
@@ -52,9 +40,20 @@ const CategoryList = () => {
                     scope="col"
                     className="p-5 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"
                   >
-                    Status
+                    Price
                   </th>
-
+                  <th
+                    scope="col"
+                    className="p-5 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"
+                  >
+                    Category
+                  </th>
+                  <th
+                    scope="col"
+                    className="p-5 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"
+                  >
+                    Active
+                  </th>
                   <th
                     scope="col"
                     className="p-5 text-left text-sm leading-6 font-semibold text-gray-900 capitalize rounded-t-xl"
@@ -82,7 +81,13 @@ const CategoryList = () => {
                     Lorem ipsum dolor sit amet.
                   </td>
                   <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
-                    <Badge isActive={true} />
+                    3000 UZS
+                  </td>
+                  <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                    Category 1
+                  </td>
+                  <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                    <Badge isActive={false} />
                   </td>
                   <td className=" p-5 ">
                     <div className="flex items-center gap-1">
@@ -113,6 +118,12 @@ const CategoryList = () => {
                     Lorem ipsum dolor sit amet.
                   </td>
                   <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                    3000 UZS
+                  </td>
+                  <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                    Category 1
+                  </td>
+                  <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
                     <Badge isActive={true} />
                   </td>
                   <td className=" p-5 ">
@@ -126,7 +137,6 @@ const CategoryList = () => {
                     </div>
                   </td>
                 </tr>
-                
               </tbody>
             </table>
           </div>
@@ -136,7 +146,7 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default ProductList;
 
 {
   /* <div className="px-3 py-4 flex justify-center border-2 border-red-600 overflow-x-auto">

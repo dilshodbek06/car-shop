@@ -10,7 +10,9 @@ const Header = () => {
   return (
     <div className="min-h-[70px] border-b shadow-sm flex items-center ">
       <div className="container px-2 mx-auto flex items-center justify-between">
-        <Logo />
+        <div className="md:invisible">
+          <Logo />
+        </div>
         <div className="flex gap-x-2 items-center">
           <button
             onClick={() => setSidebarOpen(true)}

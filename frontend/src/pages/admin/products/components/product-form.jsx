@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Drawer } from "vaul";
+import { getCategories } from "../../../../actions/category/category";
 
-const CategoryForm = ({ open, handleClose }) => {
+const ProductForm = ({ open, handleClose }) => {
   const {
     register,
     handleSubmit,
@@ -13,8 +15,22 @@ const CategoryForm = ({ open, handleClose }) => {
 
   const statusWatch = watch("status");
 
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await getCategories();
+      setCategories(data);
+    };
+    fetchCategories();
+  }, []);
+
   const onSubmit = (data) => {
-    const newData = { ...data, image: data.image[0] };
+    const newData = {
+      ...data,
+      image: data.image[0],
+      price: parseInt(data.price),
+    };
     console.log(newData);
   };
 
@@ -37,7 +53,7 @@ const CategoryForm = ({ open, handleClose }) => {
             <div className="p-3 bg-white flex-1 h-full">
               <div className="max-w-md mx-auto">
                 <Drawer.Title className="font-medium mb-4 text-xl">
-                  Create new Category
+                  Create new Product
                 </Drawer.Title>
                 <Drawer.Description className="hidden"></Drawer.Description>
               </div>
@@ -78,6 +94,50 @@ const CategoryForm = ({ open, handleClose }) => {
                       placeholder="enter description..."
                       {...register("description", { required: true })}
                     ></textarea>
+                  </div>
+                  {/* price */}
+                  <div className="mt-3">
+                    <label
+                      htmlFor="price"
+                      className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                        errors.description && "text-red-600"
+                      }`}
+                    >
+                      Price *
+                    </label>
+                    <input
+                      type="number"
+                      id="price"
+                      className="border border-gray-300  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      placeholder="enter price..."
+                      {...register("price", { required: true })}
+                    />
+                  </div>
+                  {/* category */}
+                  <div className="mt-3">
+                    <label
+                      htmlFor="category"
+                      className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                        errors.category && "text-red-600"
+                      }`}
+                    >
+                      Select a category *
+                    </label>
+                    <select
+                      defaultValue=""
+                      id="category"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
+                      {...register("category", { required: true })}
+                    >
+                      <option value="" disabled>
+                        Choose a category
+                      </option>
+                      {categories?.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.title}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   {/* active */}
                   <div className="mt-4">
@@ -164,4 +224,4 @@ const CategoryForm = ({ open, handleClose }) => {
   );
 };
 
-export default CategoryForm;
+export default ProductForm;

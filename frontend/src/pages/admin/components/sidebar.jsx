@@ -1,8 +1,9 @@
 import Logo from "./logo";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { BiCategoryAlt } from "react-icons/bi";
-import { MdListAlt } from "react-icons/md";
+import { MdCampaign, MdListAlt } from "react-icons/md";
 import SidebarItem from "./sidebar-item";
+import { TbBrandOffice } from "react-icons/tb";
 
 const adminRoutes = [
   {
@@ -19,6 +20,16 @@ const adminRoutes = [
     icon: MdListAlt,
     label: "Products",
     href: "/admin/products",
+  },
+  {
+    icon: MdCampaign,
+    label: "Advertisement",
+    href: "/admin/advertisement",
+  },
+  {
+    icon: TbBrandOffice,
+    label: "Brands",
+    href: "/admin/brands",
   },
 ];
 

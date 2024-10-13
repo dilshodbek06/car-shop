@@ -18,10 +18,12 @@ import java.util.UUID;
 public class CarPartController {
     private final CartPartService cartPartService;
     private final ObjectMapper objectMapper = new ObjectMapper();
+
     @GetMapping("/top")
     public HttpEntity<?> getTopCarPart(@RequestParam Integer count) {
-         return cartPartService.getTopCarPart(count);
+        return cartPartService.getTopCarPart(count);
     }
+
     @SneakyThrows
     @PostMapping
     public HttpEntity<?> addCarPart(@Valid @RequestParam String data,
@@ -41,7 +43,7 @@ public class CarPartController {
     }
 
     @PutMapping("/archive/{id}")
-    public HttpEntity<?> changeActive(@PathVariable UUID id){
+    public HttpEntity<?> changeActive(@PathVariable UUID id) {
         return cartPartService.changeActive(id);
     }
 
@@ -53,7 +55,7 @@ public class CarPartController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public HttpEntity<?> deleteCarPart(@PathVariable UUID id){
-       return cartPartService.deleteCarPart(id);
+    public HttpEntity<?> deleteCarPart(@PathVariable UUID id) {
+        return cartPartService.deleteCarPart(id);
     }
 }

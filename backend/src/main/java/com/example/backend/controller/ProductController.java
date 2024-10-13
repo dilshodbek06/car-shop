@@ -28,10 +28,12 @@ public class ProductController {
         ProductDTO productDTO = objectMapper.readValue(data, ProductDTO.class);
         return productService.addProduct(productDTO, photo, prefix);
     }
+
     @GetMapping("/top")
     public HttpEntity<?> getTopProduct(@RequestParam Integer count, @RequestParam(defaultValue = "all") String type) {
         return productService.getTopProduct(count, type);
     }
+
     @GetMapping
     public HttpEntity<?> getProducts(@RequestParam(defaultValue = "") String name,
                                      @RequestParam(defaultValue = "1") Integer page,
@@ -52,6 +54,6 @@ public class ProductController {
 
     @DeleteMapping
     public void deleteProduct(@RequestParam UUID id, @RequestParam String attachmentName) {
-        productService.deleteProduct(id,attachmentName);
+        productService.deleteProduct(id, attachmentName);
     }
 }

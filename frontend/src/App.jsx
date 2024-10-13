@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useMemo } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import OfferApps from "./components/offer-apps/offer-apps.jsx";
 import NotFound from "./pages/404/not-found.jsx";
@@ -29,23 +29,33 @@ const ProductDetail = lazy(() =>
 
 // admin imports
 const AdminPage = lazy(() => import("./pages/admin/admin.jsx"));
+const AdminDashboardPage = lazy(() =>
+  import("./pages/admin/dashboard/dashboard.jsx")
+);
 const AdminCategoriesPage = lazy(() =>
   import("./pages/admin/categories/categories.jsx")
 );
 const AdminProductsPage = lazy(() =>
   import("./pages/admin/products/products.jsx")
 );
+const AdvertisementPage = lazy(() =>
+  import("./pages/admin/advertisement/advertisement.jsx")
+);
 
 function App() {
   const location = useLocation();
 
+  const isAuthOrAdminPage = useMemo(
+    () =>
+      location.pathname.startsWith("/admin") ||
+      ["/login", "/register"].includes(location.pathname),
+    [location.pathname]
+  );
+
   return (
     <div>
       <Suspense fallback={<LoadingPage />}>
-        {!(
-          location.pathname.startsWith("/admin") ||
-          ["/login", "/register"].includes(location.pathname)
-        ) && <Header />}
+        {!isAuthOrAdminPage && <Header />}
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/login" element={<Login />} />
@@ -66,8 +76,13 @@ function App() {
             element={<ProductDetail />}
           />
           <Route path="/admin" element={<AdminPage />}>
+            <Route path="/admin/" element={<AdminDashboardPage />} />
             <Route path="/admin/categories" element={<AdminCategoriesPage />} />
             <Route path="/admin/products" element={<AdminProductsPage />} />
+            <Route
+              path="/admin/advertisement"
+              element={<AdvertisementPage />}
+            />
           </Route>
         </Routes>
         {!(
