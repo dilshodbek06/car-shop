@@ -8,7 +8,7 @@ const Statistics = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-4 rounded-md shadow-md hover:shadow-lg">
           <div className="mt-1 flex items-center gap-x-3">
-            <div className="p-4 rounded-md bg-cyan-100">
+            <div className="p-4 rounded-md bg-cyan-50">
               <BiCategoryAlt size={24} className="text-cyan-500" />
             </div>
             <p className="font-bold text-xl">Total Categories</p>
@@ -19,7 +19,7 @@ const Statistics = () => {
         </div>
         <div className="p-4 rounded-md shadow-md hover:shadow-lg">
           <div className="mt-1 flex items-center gap-x-3">
-            <div className="p-4 rounded-md bg-orange-100">
+            <div className="p-4 rounded-md bg-orange-50">
               <MdListAlt size={24} className="text-orange-500" />
             </div>
             <p className="font-bold text-xl">Total Products</p>
@@ -30,7 +30,7 @@ const Statistics = () => {
         </div>
         <div className="p-4 rounded-md shadow-md hover:shadow-lg">
           <div className="mt-1 flex items-center gap-x-3">
-            <div className="p-4 rounded-md bg-yellow-100">
+            <div className="p-4 rounded-md bg-yellow-50">
               <CiViewList size={24} className="text-yellow-500" />
             </div>
             <p className="font-bold text-xl">Total Orders</p>
@@ -41,7 +41,7 @@ const Statistics = () => {
         </div>
         <div className="p-4 rounded-md shadow-md hover:shadow-lg">
           <div className="mt-1 flex items-center gap-x-3">
-            <div className="p-4 rounded-md bg-indigo-100">
+            <div className="p-4 rounded-md bg-indigo-50">
               <MdCampaign size={24} className="text-indigo-500" />
             </div>
             <p className="font-bold text-xl">Total Ads</p>

@@ -5,6 +5,7 @@ import NotFound from "./pages/404/not-found.jsx";
 import LoadingPage from "./components/loading-page/loading-page.jsx";
 import Login from "./pages/auth/login.jsx";
 import Register from "./pages/auth/register.jsx";
+import { Toaster } from "react-hot-toast";
 
 // import pages and components via lazy
 const Header = lazy(() => import("./components/header/header.jsx"));
@@ -54,6 +55,7 @@ function App() {
 
   return (
     <div>
+      <Toaster />
       <Suspense fallback={<LoadingPage />}>
         {!isAuthOrAdminPage && <Header />}
         <Routes>

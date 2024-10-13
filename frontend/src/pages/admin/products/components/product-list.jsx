@@ -14,7 +14,7 @@ const ProductList = () => {
                 <tr className="bg-gray-50">
                   <th
                     scope="col"
-                    className="p-5 text-left text-sm leading-6 font-semibold text-gray-900 capitalize rounded-t-xl"
+                    className="p-5 text-left text-sm leading-6 font-semibold text-gray-900 capitalize rounded-tl-xl"
                   >
                     №
                   </th>
