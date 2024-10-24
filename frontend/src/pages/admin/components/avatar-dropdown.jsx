@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import logo from "../../../images/user-logo.svg";
 
 export default function AvatarDropdown() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // close on click outside
   useEffect(() => {
@@ -32,6 +38,14 @@ export default function AvatarDropdown() {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
+  useEffect(() => {
+    setDropdownOpen(false);
+  }, [location.pathname]);
+
+  const handleLogOut = () => {
+    // log out admin in here
+  };
+
   return (
     <div className="flex justify-center">
       <div className="relative inline-block">
@@ -40,11 +54,11 @@ export default function AvatarDropdown() {
           onClick={() => setDropdownOpen(!dropdownOpen)}
           className="flex items-center justify-center w-fit"
         >
-          <div className="relative h-[42px] w-[42px] rounded-full">
+          <div className="relative hover:shadow-md flex justify-center items-center h-[42px] w-[42px] border border-gray-200 rounded-full">
             <img
-              src="https://cdn.tailgrids.com/2.2/assets/core-components/images/avatar/image-05.jpg"
+              src={logo}
               alt="avatar"
-              className="h-full w-full rounded-full object-cover object-center"
+              className="h-[70%] w-[70%] rounded-full object-cover object-center"
             />
           </div>
         </button>
@@ -59,11 +73,17 @@ export default function AvatarDropdown() {
           <p className="w-full rounded px-3 py-2 text-left text-sm text-body-color bg-gray-50 opacity-70 cursor-not-allowed ">
             Hi Admin
           </p>
-          <p className="w-full rounded px-3 py-2 text-left text-sm text-body-color hover:bg-gray-100 cursor-pointer">
+          <p
+            onClick={() => navigate("/admin/settings")}
+            className="w-full rounded px-3 py-2 text-left text-sm text-body-color hover:bg-gray-100 cursor-pointer"
+          >
             Settings
           </p>
           <hr />
-          <p className="w-full rounded px-3 py-2 text-left text-sm text-body-color hover:bg-gray-100 cursor-pointer">
+          <p
+            onClick={() => handleLogOut()}
+            className="w-full rounded px-3 py-2 text-left text-sm text-body-color hover:bg-gray-100 cursor-pointer"
+          >
             Sign out
           </p>
         </div>

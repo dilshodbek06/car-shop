@@ -31,6 +31,7 @@ public class AutoRun implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         String adminPhone = "+998881114747";
+//        saveRoles();
         Optional<User> userByPhone = userRepository.findByPhone(adminPhone);
         saveUser(adminPhone, userByPhone);
 

@@ -7,6 +7,7 @@ import userLogo from "../../images/user.svg";
 import notificationLogo from "../../images/notification.svg";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -38,6 +39,9 @@ const Header = () => {
       url: "/test",
     },
   ];
+
+  const { products } = useSelector((state) => state.cart);
+
   return (
     <header className="my-header">
       {/* top */}
@@ -52,12 +56,12 @@ const Header = () => {
             <LuSearch className="search-btn" />
           </div>
           <div className="buttons-wrapper">
-            <button className="cart-btn">
+            <button onClick={() => navigate("/cart")} className="cart-btn">
               <div className="cart-inner">
                 <img src={cartLogo} alt="cart" />
                 <h5 className="">Cart</h5>
               </div>
-              <div className="quantity-btn">2</div>
+              <div className="quantity-btn">{products?.length}</div>
             </button>
             <button className="like-btn">
               <img className="" src={heartLogo} alt="heart icon" />

@@ -1,28 +1,51 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Drawer } from "vaul";
+import {
+  createNewCategory,
+  updateCategory,
+} from "../../../../actions/category/carPart-actions";
+import toast from "react-hot-toast";
+import { toggleModalOpen } from "../../../../redux/slices/category/carPartSlice";
 
-const CategoryForm = ({ open, handleClose }) => {
+const CategoryForm = ({ open, refresh }) => {
   const {
     register,
     handleSubmit,
     reset,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
+  const { isEditing, editingId, editingItem } = useSelector(
+    (state) => state.category
+  );
+
+  const dispatch = useDispatch();
 
   const statusWatch = watch("status");
   const fileWatch = watch("image");
 
-  const onSubmit = (data) => {
-    const newData = { ...data, image: data.image[0] };
-    console.log(newData);
+  const onSubmit = async (data) => {
+    const newData = { ...data, image: data.image[0], topPart: 0 };
+    try {
+      if (!isEditing) {
+        await createNewCategory(newData);
+      } else {
+        await updateCategory(editingId, newData);
+      }
+      refresh();
+      toast.success("Success");
+      handleCancel();
+    } catch (e) {
+      toast.error("Something went wrong");
+    }
   };
 
   const handleCancel = () => {
     reset();
-    handleClose();
+    dispatch(toggleModalOpen());
   };
   const handleRemoveImage = () => {
     setValue("image", null);
@@ -32,7 +55,7 @@ const CategoryForm = ({ open, handleClose }) => {
     <div>
       <Drawer.Root
         open={open}
-        onClose={handleClose}
+        onClose={() => dispatch(toggleModalOpen)}
         onOpenChange={handleCancel}
         direction="right"
       >
@@ -42,11 +65,11 @@ const CategoryForm = ({ open, handleClose }) => {
             <div className="p-3 bg-white flex-1 h-full">
               <div className="max-w-md mx-auto">
                 <Drawer.Title className="font-medium mb-4 text-xl">
-                  Create new Category
+                  Create new Car Part
                 </Drawer.Title>
                 <Drawer.Description className="hidden"></Drawer.Description>
               </div>
-              <div className="overflow-y-auto h-[calc(100vh-70px)] px-1">
+              <div className="overflow-y-auto scroll-smooth h-[calc(100vh-70px)] px-1">
                 <form onSubmit={handleSubmit(onSubmit)}>
                   {/* title */}
                   <div>
@@ -65,24 +88,6 @@ const CategoryForm = ({ open, handleClose }) => {
                       placeholder="enter title..."
                       {...register("title", { required: true })}
                     />
-                  </div>
-                  {/* description */}
-                  <div className="mt-3">
-                    <label
-                      htmlFor="description"
-                      className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
-                        errors.description && "text-red-600"
-                      }`}
-                    >
-                      Description *
-                    </label>
-                    <textarea
-                      id="description"
-                      rows="4"
-                      className="block p-2.5 w-full text-sm text-gray-900  rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
-                      placeholder="enter description..."
-                      {...register("description", { required: true })}
-                    ></textarea>
                   </div>
                   {/* active */}
                   <div className="mt-4">
@@ -166,7 +171,7 @@ const CategoryForm = ({ open, handleClose }) => {
                     )}
                   </div>
                   {/* action buttons */}
-                  <div className="flex justify-end items-center mt-6 gap-x-3">
+                  <div className="flex justify-end items-center mt-6 gap-x-3 pb-2">
                     <button
                       type="button"
                       onClick={() => handleCancel()}
@@ -174,8 +179,11 @@ const CategoryForm = ({ open, handleClose }) => {
                     >
                       Cancel
                     </button>
-                    <button className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                      Save
+                    <button
+                      disabled={isSubmitting}
+                      className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    >
+                      {isSubmitting ? "Loading..." : "Save"}
                     </button>
                   </div>
                 </form>

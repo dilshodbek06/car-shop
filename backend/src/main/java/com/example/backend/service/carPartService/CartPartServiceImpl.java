@@ -93,7 +93,7 @@ public class CartPartServiceImpl implements CartPartService {
             pageable = Pageable.unpaged();
         } else {
             size = (size != null && size > 0) ? size : 10;
-            pageable = Pageable.unpaged();
+            pageable = PageRequest.of(page - 1, size);
         }
         return ResponseEntity.ok(carPartRepository.findByNameContainingIgnoreCase(name, pageable));
 

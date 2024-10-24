@@ -68,7 +68,6 @@ public class BrandServiceImpl implements BrandService {
                 .orElseThrow(() -> new EntityNotFoundException("Customer category not found"));
         existingBrand.setName(brandDTO.getName());
         if (photo != null && !photo.isEmpty()) {
-            System.out.println(photo);
             createFile(photo, existingBrand);
         }
         existingBrand.setUpdatedAt(LocalDateTime.now());

@@ -24,7 +24,10 @@ public class BrandController {
     public HttpEntity<?> addBrand(@Valid @RequestParam String data,
                                   @RequestParam(required = false) MultipartFile photo,
                                   @RequestParam String prefix) {
+        System.out.println(prefix);
+        System.out.println(photo);
         BrandDTO brandDTO = objectMapper.readValue(data, BrandDTO.class);
+        System.out.println(" DTO: "+brandDTO);
         return brandService.addBrand(brandDTO, photo, prefix);
     }
 
@@ -34,7 +37,6 @@ public class BrandController {
                                    @RequestParam(required = false) MultipartFile photo,
                                    @RequestParam String prefix) {
         BrandDTO brandDTO = objectMapper.readValue(data, BrandDTO.class);
-        System.out.println(brandDTO);
         return brandService.editBrand(brandDTO, photo, prefix);
     }
 

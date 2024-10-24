@@ -2,43 +2,85 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Drawer } from "vaul";
-import { getCategories } from "../../../../actions/category/category";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createNewProduct,
+  updateProduct,
+} from "../../../../actions/product/product-actions";
+import toast from "react-hot-toast";
+import { toggleModalOpen } from "../../../../redux/slices/product/productSlice";
+import apiClient from "../../../../helpers/apiClient";
 
-const ProductForm = ({ open, handleClose }) => {
+const ProductForm = ({ open, refresh }) => {
   const {
     register,
     handleSubmit,
     reset,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
+
+  const { isEditing, editingId, editingItem } = useSelector(
+    (state) => state.product
+  );
 
   const statusWatch = watch("status");
   const fileWatch = watch("image");
+  const dispatch = useDispatch();
 
   const [categories, setCategories] = useState([]);
+  const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await getCategories();
-      setCategories(data);
-    };
-    fetchCategories();
+    fetchCarParts();
+    fetchCars();
   }, []);
 
-  const onSubmit = (data) => {
+  const fetchCars = async () => {
+    try {
+      const res = await apiClient("/car", "get");
+      setCars(res.data);
+    } catch (error) {
+      console.log(error);
+      setCars([]);
+    }
+  };
+  const fetchCarParts = async () => {
+    try {
+      const res = await apiClient("/carPart", "get");
+      setCategories(res.data?.content);
+    } catch (error) {
+      console.log(error);
+      setCategories([]);
+    }
+  };
+
+  const onSubmit = async (data) => {
     const newData = {
       ...data,
       image: data.image[0],
       price: parseInt(data.price),
+      topProduct: 0,
     };
     console.log(newData);
+    try {
+      if (!isEditing) {
+        await createNewProduct(newData);
+      } else {
+        await updateProduct(editingId, newData);
+      }
+      refresh();
+      toast.success("Success");
+      handleCancel();
+    } catch (e) {
+      toast.error("Something went wrong");
+    }
   };
 
   const handleCancel = () => {
     reset();
-    handleClose();
+    dispatch(toggleModalOpen());
   };
   const handleRemoveImage = () => {
     setValue("image", null);
@@ -48,7 +90,7 @@ const ProductForm = ({ open, handleClose }) => {
     <div>
       <Drawer.Root
         open={open}
-        onClose={handleClose}
+        onClose={() => dispatch(toggleModalOpen)}
         onOpenChange={handleCancel}
         direction="right"
       >
@@ -62,7 +104,7 @@ const ProductForm = ({ open, handleClose }) => {
                 </Drawer.Title>
                 <Drawer.Description className="hidden"></Drawer.Description>
               </div>
-              <div className="overflow-y-auto h-[calc(100vh-70px)] px-1">
+              <div className="overflow-y-auto scroll-smooth h-[calc(100vh-70px)] px-1">
                 <form onSubmit={handleSubmit(onSubmit)}>
                   {/* title */}
                   <div>
@@ -119,7 +161,7 @@ const ProductForm = ({ open, handleClose }) => {
                       {...register("price", { required: true })}
                     />
                   </div>
-                  {/* category */}
+                  {/* car part */}
                   <div className="mt-3">
                     <label
                       htmlFor="category"
@@ -127,7 +169,7 @@ const ProductForm = ({ open, handleClose }) => {
                         errors.category && "text-red-600"
                       }`}
                     >
-                      Select a category *
+                      Select a car part *
                     </label>
                     <select
                       defaultValue=""
@@ -140,13 +182,39 @@ const ProductForm = ({ open, handleClose }) => {
                       </option>
                       {categories?.map((item) => (
                         <option key={item.id} value={item.id}>
-                          {item.title}
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {/* car */}
+                  <div className="mt-3">
+                    <label
+                      htmlFor="car"
+                      className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                        errors.car && "text-red-600"
+                      }`}
+                    >
+                      Select a car *
+                    </label>
+                    <select
+                      defaultValue=""
+                      id="car"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
+                      {...register("car", { required: true })}
+                    >
+                      <option value="" disabled>
+                        Choose a car
+                      </option>
+                      {cars?.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
                         </option>
                       ))}
                     </select>
                   </div>
                   {/* active */}
-                  <div className="mt-4">
+                  <div className="mt-5">
                     <label
                       htmlFor="status"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -168,7 +236,7 @@ const ProductForm = ({ open, handleClose }) => {
                     </label>
                   </div>
                   {/* image */}
-                  <div className="mt-4">
+                  <div className="mt-5">
                     {fileWatch?.length > 0 && fileWatch[0] ? (
                       <div className="flex gap-x-5 items-center">
                         <img
@@ -227,7 +295,7 @@ const ProductForm = ({ open, handleClose }) => {
                     )}
                   </div>
                   {/* action buttons */}
-                  <div className="flex justify-end items-center mt-6 gap-x-3">
+                  <div className="flex justify-end items-center mt-6 gap-x-3 pb-2">
                     <button
                       type="button"
                       onClick={() => handleCancel()}
@@ -235,8 +303,11 @@ const ProductForm = ({ open, handleClose }) => {
                     >
                       Cancel
                     </button>
-                    <button className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                      Save
+                    <button
+                      disabled={isSubmitting}
+                      className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    >
+                      {isSubmitting ? "Loading..." : "Save"}
                     </button>
                   </div>
                 </form>

@@ -12,6 +12,7 @@ const Header = lazy(() => import("./components/header/header.jsx"));
 const Footer = lazy(() => import("./components/footer/footer.jsx"));
 
 const Home = lazy(() => import("./pages/home/home.jsx"));
+const Cart = lazy(() => import("./pages/cart/cart.jsx"));
 const Categories = lazy(() => import("./pages/categories/categories.jsx"));
 const ProductsFilter = lazy(() =>
   import("./pages/products-filter/products-filter.jsx")
@@ -39,6 +40,12 @@ const AdminCategoriesPage = lazy(() =>
 const AdminProductsPage = lazy(() =>
   import("./pages/admin/products/products.jsx")
 );
+const AdminBrandsPage = lazy(() => import("./pages/admin/brands/brands.jsx"));
+const AdminCarsPage = lazy(() => import("./pages/admin/cars/cars.jsx"));
+const AdminOrdersPage = lazy(() => import("./pages/admin/orders/orders.jsx"));
+const AdminSettingsPage = lazy(() =>
+  import("./pages/admin/settings/settings.jsx")
+);
 const AdvertisementPage = lazy(() =>
   import("./pages/admin/advertisement/advertisement.jsx")
 );
@@ -63,6 +70,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/products/filter" element={<ProductsFilter />} />
           <Route path="/products/new" element={<NewProducts />} />
@@ -81,24 +89,22 @@ function App() {
             <Route path="/admin/" element={<AdminDashboardPage />} />
             <Route path="/admin/categories" element={<AdminCategoriesPage />} />
             <Route path="/admin/products" element={<AdminProductsPage />} />
+            <Route path="/admin/brands" element={<AdminBrandsPage />} />
+            <Route path="/admin/cars" element={<AdminCarsPage />} />
+            <Route path="/admin/orders" element={<AdminOrdersPage />} />
+            <Route path="/admin/settings" element={<AdminSettingsPage />} />
             <Route
               path="/admin/advertisement"
               element={<AdvertisementPage />}
             />
           </Route>
         </Routes>
-        {!(
-          location.pathname.startsWith("/admin") ||
-          ["/login", "/register"].includes(location.pathname)
-        ) && (
+        {!isAuthOrAdminPage && (
           <div className="offer-apps-father" style={{ marginTop: "100px" }}>
             <OfferApps />
           </div>
         )}
-        {!(
-          location.pathname.startsWith("/admin") ||
-          ["/login", "/register"].includes(location.pathname)
-        ) && (
+        {!isAuthOrAdminPage && (
           <div className="footer-father">
             <Footer />
           </div>

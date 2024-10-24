@@ -1,10 +1,13 @@
 import Logo from "./logo";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { BiCategoryAlt, BiHome } from "react-icons/bi";
+import { BiHome } from "react-icons/bi";
 import { MdCampaign, MdListAlt } from "react-icons/md";
 import SidebarItem from "./sidebar-item";
 import { TbBrandOffice } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import { LiaCarSideSolid } from "react-icons/lia";
+import { FiShoppingBag } from "react-icons/fi";
+import { GiCartwheel } from "react-icons/gi";
 
 const adminRoutes = [
   {
@@ -13,8 +16,18 @@ const adminRoutes = [
     href: "/admin",
   },
   {
-    icon: BiCategoryAlt,
-    label: "Categories",
+    icon: TbBrandOffice,
+    label: "Brands",
+    href: "/admin/brands",
+  },
+  {
+    icon: LiaCarSideSolid,
+    label: "Cars",
+    href: "/admin/cars",
+  },
+  {
+    icon: GiCartwheel,
+    label: "Car Parts",
     href: "/admin/categories",
   },
   {
@@ -28,9 +41,9 @@ const adminRoutes = [
     href: "/admin/advertisement",
   },
   {
-    icon: TbBrandOffice,
-    label: "Brands",
-    href: "/admin/brands",
+    icon: FiShoppingBag,
+    label: "Orders",
+    href: "/admin/orders",
   },
 ];
 

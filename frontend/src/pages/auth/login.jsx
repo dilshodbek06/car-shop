@@ -1,15 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import photo from "../../images/brand.svg";
 import { useForm } from "react-hook-form";
-import handleLogin from "../../actions/auth/login.js";
+import { handleLogin } from "../../actions/auth/auth";
+import { useState } from "react";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    const res = await handleLogin();
-    console.log(res);
+    setLoading(true);
+    try {
+      const result = await handleLogin(data);
+      localStorage.setItem("access_token", result?.access_token);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -54,8 +64,11 @@ const Login = () => {
             </div>
 
             <div className="mt-8">
-              <button className="w-full py-4 px-8 text-sm tracking-wide font-semibold text-white bg-[#ff5000] hover:bg-[#e7520c] focus:outline-none">
-                Login
+              <button
+                disabled={loading}
+                className="w-full py-4 px-8 text-sm tracking-wide font-semibold text-white bg-[#ff5000] hover:bg-[#e7520c] focus:outline-none focus:ring-2 ring-[#e75d1d]"
+              >
+                {loading ? "Loading..." : "Login"}
               </button>
             </div>
             <p className="text-sm mt-8 text-center text-gray-800">
