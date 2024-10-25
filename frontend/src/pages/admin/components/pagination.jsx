@@ -5,7 +5,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   return (
     <div className="flex items-center space-x-2">
       <button
-        className={`px-3 py-1 ${
+        className={`px-3 py-[5px] ${
           currentPage === 1
             ? "opacity-50 cursor-not-allowed"
             : "bg-blue-500 hover:bg-blue-600 text-white rounded"
@@ -13,7 +13,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        <GrFormPreviousLink size={20} />
+        <GrFormPreviousLink size={22} />
       </button>
 
       {[...Array(totalPages).keys()].map((_, idx) => (
@@ -21,7 +21,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           key={idx}
           disabled={currentPage === idx + 1}
           className={`px-3 py-1 ${
-            currentPage === idx + 1 ? "bg-blue-500 text-white" : "bg-gray-200"
+            currentPage === idx + 1 ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"
           }`}
           onClick={() => onPageChange(idx + 1)}
         >
@@ -30,7 +30,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       ))}
 
       <button
-        className={`px-3 py-1 ${
+        className={`px-3 py-[5px] ${
           currentPage === totalPages
             ? "opacity-50 cursor-not-allowed"
             : "bg-blue-500 hover:bg-blue-600 text-white rounded"
@@ -38,7 +38,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-        <GrFormNextLink size={20} />
+        <GrFormNextLink size={22} />
       </button>
     </div>
   );

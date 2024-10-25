@@ -5,6 +5,7 @@ import brandSlice from "./slices/brand/brandSlice";
 import carSlice from "./slices/car/carSlice";
 import categorySlice from "./slices/category/carPartSlice";
 import productSlice from "./slices/product/productSlice";
+import adsSlice from "./slices/ads/adsSlice";
 
 const rootReducer = combineReducers({
   cart: cartSlice,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   car: carSlice,
   category: categorySlice,
   product: productSlice,
+  ads: adsSlice,
 });
 
 const store = configureStore({
