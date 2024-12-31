@@ -24,7 +24,6 @@ const CategoryForm = ({ open, refresh }) => {
 
   const dispatch = useDispatch();
 
-  const statusWatch = watch("status");
   const fileWatch = watch("image");
 
   const onSubmit = async (data) => {
@@ -36,10 +35,10 @@ const CategoryForm = ({ open, refresh }) => {
         await updateCategory(editingId, newData);
       }
       refresh();
-      toast.success("Success");
+      toast.success("Muvafaqqiyatli");
       handleCancel();
     } catch (e) {
-      toast.error("Something went wrong");
+      toast.error("Xatolik yuz berdi");
     }
   };
 
@@ -88,28 +87,6 @@ const CategoryForm = ({ open, refresh }) => {
                       placeholder="enter title..."
                       {...register("title", { required: true })}
                     />
-                  </div>
-                  {/* active */}
-                  <div className="mt-4">
-                    <label
-                      htmlFor="status"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Choose a status
-                    </label>
-                    <label className="inline-flex items-center me-5 mt-1 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        value=""
-                        id="status"
-                        className="sr-only peer"
-                        {...register("status")}
-                      />
-                      <span className=" text-sm font-medium text-gray-900 ">
-                        {statusWatch ? "Active" : "Noactive"}
-                      </span>
-                      <div className="relative ml-3 w-11 h-6 bg-gray-200 rounded-full peer  peer-focus:ring-1 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
-                    </label>
                   </div>
                   {/* image */}
                   <div className="mt-4">

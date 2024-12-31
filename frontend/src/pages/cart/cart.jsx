@@ -1,27 +1,53 @@
+import { useDispatch, useSelector } from "react-redux";
 import "./cart.scss";
+import { baseUrl } from "../../helpers/apiClient";
+import {
+  decreaseQuantity,
+  deleteItem,
+  increaseQuantity,
+} from "../../redux/slices/cart/cartSlice";
+import EmptyCart from "./components/empty-cart";
+import UserForm from "./components/user-form";
+import { useNavigate } from "react-router-dom";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const Cart = () => {
+  const getImage = (name) => `${baseUrl}/file/getFile/${name}`;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { products: cartProducts } = useSelector((state) => state.cart);
+
   return (
     <div className="my-cart">
+      <button onClick={() => navigate(-1)} className="back-to">
+        <MdKeyboardBackspace size={18} /> <span>Orqaga</span>
+      </button>
       <div className="cart">
-        <h1 className="cart__title">Shopping Cart</h1>
+        <h1 className="cart__title">Xaridlar savati</h1>
+        {cartProducts?.length <= 0 && <EmptyCart />}
         <div className="cart__content">
           <div className="cart__items">
-            {[1, 1, 1, 1, 1, 1, 1, 1].map((item, ind) => (
+            {cartProducts?.map((item, ind) => (
               <div key={ind} className="cart__item">
                 <div className="cart__item-details">
                   <div className="cart__item-image">
                     <img
-                      src="https://readymadeui.com/images/product14.webp"
-                      alt="Velvet Sneaker"
+                      src={
+                        item?.imageUrl
+                          ? item?.imageUrl
+                          : getImage(item?.photo?.id)
+                      }
+                      alt="photo"
                     />
                   </div>
                   <div className="cart__item-info">
-                    <h3 className="cart__item-name">Velvet Sneaker</h3>
-                    <p className="cart__item-size">
-                      Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.{" "}
-                    </p>
-                    <button type="button" className="cart__item-remove">
+                    <h3 className="cart__item-name">{item.name}</h3>
+                    <p className="cart__item-size">{item.description}</p>
+                    <button
+                      onClick={() => dispatch(deleteItem(item.id))}
+                      type="button"
+                      className="cart__item-remove"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="cart__item-icon"
@@ -30,22 +56,26 @@ const Cart = () => {
                         <path d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"></path>
                         <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"></path>
                       </svg>
-                      REMOVE
+                      O&apos;chirish
                     </button>
                   </div>
                 </div>
                 <div className="cart__item-price">
-                  <h4>$20.00</h4>
+                  <h4>{item.price.toLocaleString()} UZS</h4>
                   <button type="button" className="cart__item-quantity">
                     <svg
+                      onClick={() => dispatch(decreaseQuantity(item))}
                       xmlns="http://www.w3.org/2000/svg"
-                      className="cart__item-icon"
+                      className={`cart__item-icon ${
+                        item?.quantity === 1 ? "disabled" : ""
+                      }`}
                       viewBox="0 0 124 124"
                     >
                       <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z"></path>
                     </svg>
-                    <span>2</span>
+                    <span>{item.quantity}</span>
                     <svg
+                      onClick={() => dispatch(increaseQuantity(item))}
                       xmlns="http://www.w3.org/2000/svg"
                       className="cart__item-icon"
                       viewBox="0 0 42 42"
@@ -57,68 +87,7 @@ const Cart = () => {
               </div>
             ))}
           </div>
-          <div className="order-summary">
-            <h3 className="order-summary__title">Order Summary</h3>
-            <form className="order-summary__form">
-              <div className="order-summary__details">
-                <h3 className="order-summary__subtitle">Enter Details</h3>
-                <div className="order-summary__inputs">
-                  <div className="order-summary__input-group">
-                    <input
-                      type="text"
-                      placeholder="Full Name..."
-                      className="order-summary__input"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="order-summary__icon"
-                    ></svg>
-                  </div>
-                  <div className="order-summary__input-group">
-                    <input
-                      type="email"
-                      placeholder="Email..."
-                      className="order-summary__input"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="order-summary__icon"
-                    ></svg>
-                  </div>
-                  <div className="order-summary__input-group">
-                    <input
-                      type="number"
-                      placeholder="Phone..."
-                      className="order-summary__input"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="order-summary__icon"
-                    ></svg>
-                  </div>
-                </div>
-              </div>
-            </form>
-
-            <ul className="order-summary__pricing">
-              <li className="order-summary__pricing-item">
-                Subtotal <span>$200.00</span>
-              </li>
-              <li className="order-summary__pricing-item">
-                Shipping <span>$2.00</span>
-              </li>
-              <li className="order-summary__pricing-total">
-                Total <span>$206.00</span>
-              </li>
-            </ul>
-
-            <div className="order-summary__actions">
-              <button className="order-summary__checkout">Checkout</button>
-              <button className="order-summary__continue">
-                Continue Shopping
-              </button>
-            </div>
-          </div>
+          {cartProducts?.length > 0 && <UserForm />}
         </div>
       </div>
     </div>

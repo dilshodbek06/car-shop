@@ -11,10 +11,10 @@ const AdsImageTable = ({ loading, items, refresh }) => {
   const handleDelete = async (id) => {
     const result = await deleteAdsImage(id);
     if (result?.success) {
-      toast.success("Deleted success");
+      toast.success("Muvafaqqiyatli o'chirildi");
       refresh();
     } else {
-      toast.error("Something went wrong");
+      toast.error("Xatolik yuz berdi");
     }
   };
   const getImage = (name) => {
@@ -85,6 +85,7 @@ const AdsImageTable = ({ loading, items, refresh }) => {
                           className="w-16 h-16 cursor-pointer"
                           src={getImage(item?.attachment?.id)}
                           alt="image"
+                          loading="lazy"
                         />
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">

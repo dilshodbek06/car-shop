@@ -8,6 +8,7 @@ $tablet_screen: 700px;
 }
 
 .my-topProducts {
+  margin-top: 40px;
   .container {
     padding: 0 10px;
     width: 100%;
@@ -33,6 +34,10 @@ $tablet_screen: 700px;
         cursor: pointer;
         @include media(450px) {
           display: block;
+        }
+        &:hover {
+          color: blue;
+          text-decoration: underline;
         }
       }
     }
@@ -75,6 +80,11 @@ $tablet_screen: 700px;
         font-size: 16px;
         font-weight: 400;
         cursor: pointer;
+        transition: all 200ms ease;
+        &:hover {
+          background-color: #ee6729;
+          color: white;
+        }
       }
     }
   }

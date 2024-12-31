@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function AvatarDropdown() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -9,6 +10,8 @@ export default function AvatarDropdown() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { user } = useAuth();
 
   // close on click outside
   useEffect(() => {
@@ -40,9 +43,19 @@ export default function AvatarDropdown() {
     setDropdownOpen(false);
   }, [location.pathname]);
 
-  const handleLogOut = () => {
-    // log out admin in here
-  };
+  const handleLogOut = useCallback(() => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    navigate("/login");
+  }, [navigate]);
+
+  const mainText = useMemo(() => {
+    return user.role === "ROLE_ADMIN"
+      ? "Hi Admin 👋"
+      : user.role === "ROLE_OPERATOR"
+      ? "Hi Operator 👋"
+      : "Hi Super Admin 👋";
+  }, [user.role]);
 
   return (
     <div className="flex justify-center">
@@ -105,7 +118,7 @@ export default function AvatarDropdown() {
           }`}
         >
           <p className="w-full rounded px-3 py-2 text-left text-sm text-body-color bg-gray-50 opacity-70 cursor-not-allowed ">
-            Hi Admin
+            {mainText}
           </p>
           <p
             onClick={() => navigate("/admin/settings")}

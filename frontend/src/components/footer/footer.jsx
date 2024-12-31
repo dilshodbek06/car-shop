@@ -1,11 +1,11 @@
 import "./footer.scss";
 
-import brandLogo from "../../images/footer-logo.svg";
+import brandLogo from "../../assets/logo.png";
 import playMarketLogo from "../../images/play-market.svg";
 import appStoreLogo from "../../images/footer-app-store.svg";
-import pochtaLogo from "../../images/pochta.svg";
 import gudokLogo from "../../images/gudok.svg";
 import locationLogo from "../../images/location.svg";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -44,16 +44,29 @@ const Footer = () => {
                 <div className="left-tarmoq">
                   <p>Ijtimoiy tarmoq</p>
                   <ul>
-                    <li>Telegram</li>
-                    <li>Instagram</li>
-                    <li>Youtube</li>
+                    <Link target="_blank" to={`https://t.me/zap_chast_uz`}>
+                      <li>Telegram</li>
+                    </Link>
+                    <Link
+                      target="_blank"
+                      to={`https://instagram.com/zap_chast.uz`}
+                    >
+                      <li>Instagram</li>
+                    </Link>
                   </ul>
                 </div>
                 <div className="left-tarmoq">
                   <p>Hamkorlar</p>
                   <ul>
-                    <li>Xenol</li>
-                    <li>Coolstream</li>
+                    <Link target="_blank" to={`https://instagram.com/xenol.uz`}>
+                      <li>Xenol</li>
+                    </Link>
+                    <Link
+                      target="_blank"
+                      to={`https://instagram.com/coolstream.uz`}
+                    >
+                      <li>Coolstream</li>
+                    </Link>
                   </ul>
                 </div>
               </div>
@@ -62,12 +75,9 @@ const Footer = () => {
                 <div className="contacts-outer">
                   <div>
                     <img src={gudokLogo} alt="tel logo" />
-                    <p>+99 888 111 47 47</p>
+                    <p>+998 88 111 47 47</p>
                   </div>
-                  <div>
-                    <img src={pochtaLogo} alt="tel logo" />
-                    <p>islom.dev@icloud.com</p>
-                  </div>
+
                   <div>
                     <img src={locationLogo} alt="tel logo" />
                     <p>Toshkent shahar, Sergeli moshina bozor</p>
@@ -81,7 +91,7 @@ const Footer = () => {
           <div className="bottom-container">
             <hr />
             <div>
-              <p>©2023 zapchast.uz </p>
+              <p>©2023 zap-chast.uz </p>
               <p>Ishlab chiquvchi: </p>
             </div>
           </div>

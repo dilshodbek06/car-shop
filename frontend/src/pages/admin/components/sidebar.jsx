@@ -6,8 +6,11 @@ import SidebarItem from "./sidebar-item";
 import { TbBrandOffice } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { LiaCarSideSolid } from "react-icons/lia";
-import { FiShoppingBag } from "react-icons/fi";
 import { GiCartwheel } from "react-icons/gi";
+import { FaUsers } from "react-icons/fa6";
+
+import { TbShoppingCart, TbClock, TbCheck, TbX } from "react-icons/tb";
+import { useAuth } from "../../../context/AuthContext";
 
 const adminRoutes = [
   {
@@ -40,15 +43,49 @@ const adminRoutes = [
     label: "Advertisement",
     href: "/admin/advertisement",
   },
+];
+
+const operatorRoutes = [
   {
-    icon: FiShoppingBag,
-    label: "Orders",
-    href: "/admin/orders",
+    icon: TbShoppingCart, // Icon for "New Orders"
+    label: "New Orders",
+    href: "/admin/orders-new",
+  },
+  {
+    icon: TbClock, // Icon for "Inprogress Orders"
+    label: "Inprogress Orders",
+    href: "/admin/orders-progress",
+  },
+  {
+    icon: TbCheck, // Icon for "Completed Orders"
+    label: "Completed Orders",
+    href: "/admin/orders-completed",
+  },
+  {
+    icon: TbX, // Icon for "Declined Orders"
+    label: "Declined Orders",
+    href: "/admin/orders-declined",
+  },
+];
+
+const superAdminRoutes = [
+  {
+    icon: FaUsers,
+    label: "Employees",
+    href: "/admin/users",
   },
 ];
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const routes =
+    user?.role === "ROLE_SUPER_ADMIN"
+      ? superAdminRoutes
+      : user?.role === "ROLE_OPERATOR"
+      ? operatorRoutes
+      : adminRoutes;
 
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm">
@@ -57,7 +94,7 @@ const Sidebar = () => {
       </div>
       <div className="flex flex-col w-full">
         <div className="flex flex-col w-full">
-          {adminRoutes.map((route) => (
+          {routes.map((route) => (
             <SidebarItem
               key={route.href}
               icon={route.icon}

@@ -1,19 +1,17 @@
 import { GoHomeFill } from "react-icons/go";
 import "./phone-navigation.scss";
 import { TiThLargeOutline } from "react-icons/ti";
-import { FiShoppingCart } from "react-icons/fi";
-import { FaRegHeart } from "react-icons/fa";
-import { FaRegCircleUser } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BiPackage } from "react-icons/bi";
 
 const PhoneNavigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const menus = [
     {
       id: 1,
-      name: "Главная",
+      name: "Asosiy",
       url: "/",
       icon: (
         <GoHomeFill
@@ -23,7 +21,7 @@ const PhoneNavigation = () => {
     },
     {
       id: 2,
-      name: "Каталог",
+      name: "Katalog",
       url: "/categories",
       icon: (
         <TiThLargeOutline
@@ -35,36 +33,38 @@ const PhoneNavigation = () => {
     },
     {
       id: 3,
-      name: "Корзина",
-      url: "/products/product-detail/1",
+      name: "Mahsulotlar",
+      url: "/products/filter",
       icon: (
-        <FiShoppingCart
-          className={`icon ${location.pathname === "/cart" ? "active" : ""}`}
-        />
-      ),
-    },
-    {
-      id: 4,
-      name: "Избранное",
-      url: "/products/filter", // wishlist
-      icon: (
-        <FaRegHeart
+        <BiPackage
           className={`icon ${
-            location.pathname === "/wishlist" ? "active" : ""
+            location.pathname === "/products/filter" ? "active" : ""
           }`}
         />
       ),
     },
-    {
-      id: 5,
-      name: "Профиль",
-      url: "/profile",
-      icon: (
-        <FaRegCircleUser
-          className={`icon ${location.pathname === "/profile" ? "active" : ""}`}
-        />
-      ),
-    },
+    // {
+    //   id: 4,
+    //   name: "Избранное",
+    //   url: "/wishlist", // wishlist
+    //   icon: (
+    //     <FaRegHeart
+    //       className={`icon ${
+    //         location.pathname === "/wishlist" ? "active" : ""
+    //       }`}
+    //     />
+    //   ),
+    // },
+    // {
+    //   id: 5,
+    //   name: "Профиль",
+    //   url: "/profile",
+    //   icon: (
+    //     <FaRegCircleUser
+    //       className={`icon ${location.pathname === "/profile" ? "active" : ""}`}
+    //     />
+    //   ),
+    // },
   ];
 
   return (

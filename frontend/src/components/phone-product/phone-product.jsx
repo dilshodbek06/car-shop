@@ -1,9 +1,29 @@
 /* eslint-disable react/prop-types */
 import "./phone-product.scss";
 import productImage from "../../images/products/product1.svg";
-import { FiHeart } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
-const PhoneProduct = ({ term = "" }) => {
+const PhoneProduct = ({
+  term = "",
+  price,
+  name,
+  imageUrl,
+  addToCart,
+  id,
+  description,
+}) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    const obj = {
+      id,
+      price,
+      name,
+      imageUrl,
+      description,
+    };
+    navigate(`/products/product-detail/${id}`, { state: obj });
+  };
   return (
     <div className="my-phone-product">
       <div className="card-header">
@@ -19,16 +39,20 @@ const PhoneProduct = ({ term = "" }) => {
         >
           {term}
         </div>
-        <FiHeart className="add-to-wishlist" />
+        {/* <FiHeart className="add-to-wishlist" /> */}
       </div>
       <div className="card-body">
-        <img src={productImage} alt="product image" />
+        <img src={imageUrl ?? productImage} alt="product image" />
       </div>
       <div className="card-footer">
-        <h2>Y7 Led lampalar H4 linzali, Svetodiodli lampalar</h2>
-        <p>11 штук</p>
-        <h3 className="price">14 000 сум</h3>
-        <button className="add-btn">В корзину</button>
+        <h2 onClick={handleNavigate} className="hover:underline">
+          {name ?? "Y7 Led lampalar H4 linzali, Svetodiodli lampalar"}
+        </h2>
+
+        <h3 className="price">{price?.toLocaleString() ?? "000"} so&apos;m</h3>
+        <button onClick={addToCart} className="add-btn">
+          Savatga
+        </button>
       </div>
     </div>
   );

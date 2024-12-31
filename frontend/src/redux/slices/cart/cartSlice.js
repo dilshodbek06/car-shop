@@ -19,10 +19,11 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const item = state.products.find((item) => item.id === action.payload.id);
+      const quantityToAdd = parseInt(action.payload.quantity) || 1;
       if (item) {
-        item.quantity += parseInt(action.payload.quantity, 10);
+        item.quantity += quantityToAdd;
       } else {
-        state.products.push(action.payload);
+        state.products.push({ ...action.payload, quantity: quantityToAdd });
       }
       localStorage.setItem("cart", JSON.stringify(state.products));
     },

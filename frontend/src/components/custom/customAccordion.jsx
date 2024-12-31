@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import  { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import "./customAccordion.scss";
 
@@ -42,7 +42,7 @@ const CustomAccordion = ({ index, title, children }) => {
           style={{ height: `${contentHeight}px` }}
           ref={contentRef}
         >
-          <div>{children}</div>
+          <div className="mt-1">{children}</div>
         </div>
       </div>
     </div>

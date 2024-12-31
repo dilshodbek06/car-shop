@@ -33,10 +33,10 @@ const AdsImageModal = ({ open, refresh }) => {
       await createNewAdsImage({ image });
       refresh();
       setLoading(false);
-      toast.success("Success");
+      toast.success("Muvafaqqiyatli");
       handleCancel();
     } catch (e) {
-      toast.error("Something went wrong");
+      toast.error("Xatolik yuz berdi");
     } finally {
       setLoading(false);
     }

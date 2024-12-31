@@ -1,18 +1,12 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineClose } from "react-icons/ai";
-import { GoPencil } from "react-icons/go";
 import Badge from "../../components/badge";
 import { baseUrl } from "../../../../helpers/apiClient";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct } from "../../../../actions/product/product-actions";
 import toast from "react-hot-toast";
 import Loading from "../../../../components/loading/loading";
-import {
-  handleEditingItem,
-  handleIsEdit,
-  setCurrenPage,
-  toggleModalOpen,
-} from "../../../../redux/slices/product/productSlice";
+import { setCurrenPage } from "../../../../redux/slices/product/productSlice";
 import Pagination from "../../components/pagination";
 
 const ProductList = ({ loading, items, refresh }) => {
@@ -27,17 +21,11 @@ const ProductList = ({ loading, items, refresh }) => {
   const handleDelete = async (id) => {
     const result = await deleteProduct(id);
     if (result?.success) {
-      toast.success("Deleted success");
+      toast.success("Muvafaqqiyatli o'chirildi");
       refresh();
     } else {
-      toast.error("Something went wrong");
+      toast.error("Xatolik yuz berdi");
     }
-  };
-
-  const handleEdit = async (item) => {
-    dispatch(handleEditingItem(item));
-    dispatch(handleIsEdit());
-    dispatch(toggleModalOpen());
   };
 
   const handlePageChange = (page) => {
@@ -118,7 +106,7 @@ const ProductList = ({ loading, items, refresh }) => {
                   {items?.length <= 0 && (
                     <tr>
                       <td
-                        colSpan={6}
+                        colSpan={8}
                         className="text-center py-4 text-gray-700"
                       >
                         No data found
@@ -138,6 +126,7 @@ const ProductList = ({ loading, items, refresh }) => {
                           className="w-16 h-16 cursor-pointer"
                           src={getImage(item?.photo?.id, item?.photo?.prefix)}
                           alt="photo"
+                          loading="lazy"
                         />
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
@@ -160,12 +149,6 @@ const ProductList = ({ loading, items, refresh }) => {
                       </td>
                       <td className=" p-5 ">
                         <div className="flex items-center gap-1">
-                          <button
-                            onClick={() => handleEdit(item)}
-                            className="p-2 rounded-full  group transition-all duration-500  flex item-center hover:text-sky-600 hover:bg-gray-100"
-                          >
-                            <GoPencil size={20} />
-                          </button>
                           <button
                             onClick={() => handleDelete(item?.id)}
                             className="p-2 rounded-full  group transition-all duration-500  flex item-center hover:text-red-600 hover:bg-gray-100"

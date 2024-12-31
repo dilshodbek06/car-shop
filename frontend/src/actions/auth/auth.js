@@ -6,7 +6,7 @@ export const handleLogin = async (data) => {
     const res = await apiClient("/auth/login", "POST", data);
     return res.data;
   } catch (error) {
-    toast.error("Phone or password is wrong!");
+    toast.error("Telefon raqam yoki parol xato!");
     return null;
   }
 };

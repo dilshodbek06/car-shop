@@ -22,6 +22,7 @@ const Products = () => {
   useEffect(() => {
     fetch();
   }, []);
+
   const fetch = async (currentPage) => {
     try {
       dispatch(fetchProductsStart());

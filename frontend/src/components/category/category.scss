@@ -8,6 +8,7 @@ $tablet_screen: 700px;
 }
 
 .my-category {
+  cursor: pointer;
   max-width: 270px;
   width: 100%;
   min-height: 270px;
@@ -16,6 +17,7 @@ $tablet_screen: 700px;
   @include media(450px) {
     max-width: 192px;
     border-radius: 8px;
+    min-height: 140px;
   }
   .card-body {
     height: 260px;
@@ -25,7 +27,8 @@ $tablet_screen: 700px;
     margin: 0 auto;
     padding-top: 45px;
     @include media(450px) {
-      height: 220px;
+      height: 120px;
+      padding-top: 10px;
     }
 
     img {
@@ -33,8 +36,8 @@ $tablet_screen: 700px;
       height: 180px;
       object-fit: cover;
       @include media(450px) {
-        width: 140px;
-        height: 140px;
+        width: 100px;
+        height: 100px;
       }
     }
   }
@@ -46,7 +49,7 @@ $tablet_screen: 700px;
     justify-content: center;
     align-items: center;
     @include media(450px) {
-      height: 55px;
+      height: 45px;
     }
     h5 {
       color: rgba(39, 35, 67, 1);

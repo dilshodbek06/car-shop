@@ -1,24 +1,86 @@
-.my-new-products-filter {
-  margin-top: 84px;
-  .container {
+$phone_screen: 375px;
+$tablet_screen: 700px;
+
+@mixin media($max_width) {
+  @media (max-width: $max_width) {
+    @content;
+  }
+}
+
+.my-products-filter-new {
+  margin-top: 54px;
+  @include media(800px) {
+    margin-top: 20px;
+  }
+  @include media(450px) {
+    padding-bottom: 70px;
+    margin-top: 0px;
+  }
+  .container-products-filter {
     padding: 0 10px;
     max-width: 1150px;
     margin: 0 auto;
     display: flex;
-    // justify-content: space-between;
+    justify-content: space-between;
     gap: 20px;
+    @include media(800px) {
+      flex-direction: column;
+    }
+
+    .close {
+      height: 38px;
+      overflow-y: hidden;
+      transition: all 300ms ease;
+      @include media(400px) {
+        height: 35px;
+      }
+    }
+    .close-inner {
+      // margin-top: -2px;
+      @include media(400px) {
+        margin-top: 0px;
+      }
+      @include media(500px) {
+        margin-top: 1px;
+      }
+    }
+
+    .close-btn {
+      margin-right: -7px;
+      transition: all 0.3s ease;
+      @include media(400px) {
+        margin-top: -1px;
+      }
+      @include media(700px) {
+        margin-top: 0px;
+      }
+    }
 
     .filter-wrapper {
       max-width: 315px;
       width: 100%;
-      max-height: 446px;
+      // min-height: 446px;
       background-color: rgba(240, 242, 243, 1);
-      border-radius: 20px;
-      padding: 24px;
+      border-radius: 17px;
+      padding: 3px 24px 20px 24px;
+      transition: all 0.3s ease;
+      position: sticky;
+      top: 0px;
+      @include media(800px) {
+        // border-radius: 10px 15px 15px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 6px 0px;
+        border-radius: 10px;
+        max-width: 100%;
+        padding-left: 16px;
+        padding-top: 1px;
+      }
       h2 {
         font-weight: 600;
-        font-size: 26px;
+        font-size: 24px;
         color: rgba(39, 35, 67, 1);
+        @include media(670px) {
+          font-size: 18px;
+        }
       }
       .filters-outer {
         display: flex;
@@ -26,13 +88,46 @@
         gap: 24px;
         align-items: center;
         margin-top: 45px;
+        @include media(800px) {
+          flex-direction: row;
+          margin-top: 10px;
+          align-items: baseline;
+        }
+        @include media(670px) {
+          gap: 10px;
+          margin-top: 6px;
+          flex-wrap: wrap;
+        }
+        .brands-list {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          .filter-item {
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 1px 10px 1px;
+            border-radius: 10px;
+          }
+
+          .filter-item:hover {
+            background-color: #f0f0f0;
+          }
+
+          .filter-item.active {
+            font-weight: 900;
+          }
+        }
       }
       .buttons-wrapper {
-        margin-top: 100px;
+        margin-top: 80px;
         display: flex;
         align-items: center;
         gap: 10px;
         user-select: none;
+        @include media(800px) {
+          margin-top: 20px;
+          justify-content: flex-end;
+        }
         .clear-btn {
           display: flex;
           align-items: center;
@@ -42,14 +137,28 @@
           border-radius: 18px;
           cursor: pointer;
           border: none;
+          @include media(670px) {
+            padding: 8px 14px 7px 14px;
+            border-radius: 12px;
+          }
           span {
             color: rgba(39, 35, 67, 1);
             font-size: 15px;
             font-weight: 400;
+            @include media(670px) {
+              font-size: 14px;
+            }
           }
           .clear-icon {
             width: 20px;
             height: 20px;
+            @include media(670px) {
+              width: 16px;
+              height: 16px;
+            }
+          }
+          &:hover {
+            opacity: 80%;
           }
         }
         .search-btn {
@@ -61,15 +170,29 @@
           border-radius: 18px;
           cursor: pointer;
           border: none;
+          @include media(670px) {
+            padding: 8px 14px 7px 14px;
+            border-radius: 12px;
+          }
           span {
             color: rgba(255, 255, 255, 1);
             font-size: 15px;
             font-weight: 400;
+            @include media(670px) {
+              font-size: 14px;
+            }
           }
           .search-icon {
             width: 20px;
             height: 20px;
             color: rgba(255, 255, 255, 1);
+            @include media(670px) {
+              width: 16px;
+              height: 16px;
+            }
+          }
+          &:hover {
+            background-color: rgb(255, 105, 36);
           }
         }
       }
@@ -78,6 +201,24 @@
       display: grid;
       grid-template-columns: auto auto auto;
       gap: 40px 20px;
+      @include media(1050px) {
+        grid-template-columns: auto auto;
+      }
+      @include media(800px) {
+        gap: 15px;
+        grid-template-columns: auto auto auto;
+      }
+      @include media(670px) {
+        gap: 15px;
+        grid-template-columns: auto auto;
+      }
+    }
+  }
+  .phone-navigation-father {
+    display: none;
+    margin-top: 15px;
+    @include media(450px) {
+      display: block;
     }
   }
 }

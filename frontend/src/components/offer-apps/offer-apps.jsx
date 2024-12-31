@@ -8,12 +8,10 @@ const OfferApps = () => {
     <div className="my-offer-apps">
       <div className="container">
         <div className="left">
-          <h1>Zapchast.uz - Mobil ilovasini yuklang</h1>
+          <h1>Zap-chast.uz - Mobil ilovasini yuklang</h1>
           <p className="desc">
-            Zapchast.uz - Mobile ilovasinini yuklab oling va oz’ingizga kerakli
-            avtomobil extiyot qisimlarini oson toping. Zapchast.uz - Mobile
-            ilovasinini yuklab oling va oz’ingizga kerakli avtomobil extiyot
-            qisimlarini oson toping.{" "}
+            Zap-chast.uz - Mobile ilovasinini yuklab oling va o`zingizga kerakli
+            avtomobil extiyot qismlarini oson toping.
           </p>
           <div className="apps-wrapper">
             <div className="play-market-btn">
@@ -22,7 +20,7 @@ const OfferApps = () => {
                 <p>GET IT ON</p>
                 <h5>Google Play</h5>
               </div>
-            </div>  
+            </div>
             <div className="app-store-btn">
               <img src={appStoreLogo} alt="app store" />
               <div>

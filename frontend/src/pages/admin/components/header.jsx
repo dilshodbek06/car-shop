@@ -1,10 +1,22 @@
 import Logo from "./logo";
 import AvatarDropdown from "./avatar-dropdown";
-import { useState } from "react";
 import MobileSidebar from "./mobile-sidebar";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  handleCloseSidebar,
+  handleOpenSidebar,
+} from "../../../redux/slices/mobile-sidebar/mobile-sidebar";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const Header = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { open } = useSelector((state) => state.mSidebar);
+
+  const location = useLocation();
+  useEffect(() => {
+    dispatch(handleCloseSidebar());
+  }, [dispatch, location.pathname]);
 
   return (
     <div className="min-h-[70px] border-b shadow-sm flex items-center ">
@@ -14,7 +26,7 @@ const Header = () => {
         </div>
         <div className="flex gap-x-2 items-center">
           <button
-            onClick={() => setSidebarOpen(true)}
+            onClick={() => dispatch(handleOpenSidebar())}
             className="hover:bg-gray-100 rounded-full p-2 md:hidden"
           >
             <svg
@@ -67,8 +79,8 @@ const Header = () => {
       </div>
       <div>
         <MobileSidebar
-          open={sidebarOpen}
-          handleClose={() => setSidebarOpen(false)}
+          open={open}
+          handleClose={() => dispatch(handleCloseSidebar())}
         />
       </div>
     </div>

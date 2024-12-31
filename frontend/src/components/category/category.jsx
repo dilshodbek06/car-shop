@@ -1,15 +1,21 @@
+/* eslint-disable react/prop-types */
 import "./category.scss";
 
 import categoryPhoto from "../../images/category/image 21.svg";
+import { useNavigate } from "react-router-dom";
 
-const Category = () => {
+const Category = ({ name, imageUrl, id }) => {
+  const navigate = useNavigate();
   return (
-    <div className="my-category">
+    <div
+      onClick={() => navigate(`/products/filter?category=${id}`)}
+      className="my-category"
+    >
       <div className="card-body">
-        <img src={categoryPhoto} alt={categoryPhoto} />
+        <img src={imageUrl ?? categoryPhoto} alt={categoryPhoto} />
       </div>
       <div className="card-footer">
-        <h5>Suspension</h5>
+        <h5>{name ?? "Suspension"}</h5>
       </div>
     </div>
   );

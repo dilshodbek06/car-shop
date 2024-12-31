@@ -21,6 +21,8 @@ $tablet_screen: 700px;
     align-items: center;
     @include media(450px) {
       background-color: #fff;
+      height: 76px;
+      padding-top: 4px;
     }
     .container {
       padding: 0 10px;
@@ -42,8 +44,9 @@ $tablet_screen: 700px;
           gap: 8px;
         }
         img {
-          width: 45px;
+          width: 40px;
           height: 38px;
+          border-radius: 50%;
         }
         h1 {
           font-size: 22px;
@@ -54,36 +57,36 @@ $tablet_screen: 700px;
           }
         }
       }
-      .input-wrapper {
-        position: relative;
-        max-width: 489px;
-        width: 100%;
-        @include media(1030px) {
-          display: none;
-        }
-        input {
-          background-color: white;
-          border-radius: 5px;
-          padding-left: 12px;
-          height: 38px;
-          width: 100%;
-          border: none;
-        }
-        input:focus {
-          outline: none;
-        }
-        input::placeholder {
-          color: #9a9caa;
-        }
-        .search-btn {
-          position: absolute;
-          top: 10px;
-          right: 12px;
-          width: 16px;
-          height: 16px;
-          cursor: pointer;
-        }
-      }
+      // .input-wrapper {
+      //   position: relative;
+      //   max-width: 489px;
+      //   width: 100%;
+      //   @include media(1030px) {
+      //     display: none;
+      //   }
+      //   input {
+      //     background-color: white;
+      //     border-radius: 5px;
+      //     padding-left: 40px;
+      //     height: 38px;
+      //     width: 100%;
+      //     border: none;
+      //   }
+      //   input:focus {
+      //     outline: none;
+      //   }
+      //   input::placeholder {
+      //     color: #9a9caa;
+      //   }
+      //   .search-btn {
+      //     position: absolute;
+      //     top: 11px;
+      //     left: 16px;
+      //     width: 16px;
+      //     height: 16px;
+      //     opacity: 70%;
+      //   }
+      // }
       .buttons-wrapper {
         display: flex;
         align-items: center;
@@ -180,8 +183,33 @@ $tablet_screen: 700px;
         .notification-btn {
           display: none;
           cursor: pointer;
+          padding-right: 3px;
+          position: relative;
           @include media(450px) {
             display: block;
+            padding-right: 8px;
+          }
+          .cart-icon {
+            width: 24px;
+            height: 24px;
+            color: rgb(44, 45, 48);
+          }
+          .quantity-div {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-color: #ff5000;
+            font-size: 10px;
+            border-radius: 50%;
+            position: absolute;
+            top: -6px;
+            right: -3px;
+            @include media(450px) {
+              right: -2px;
+            }
           }
         }
       }
@@ -200,7 +228,7 @@ $tablet_screen: 700px;
     input {
       background-color: rgba(244, 247, 248, 1);
       border-radius: 4px;
-      padding-left: 12px;
+      padding-left: 40px;
       height: 40px;
       width: 100%;
       border: none;
@@ -215,11 +243,44 @@ $tablet_screen: 700px;
     .search-btn {
       position: absolute;
       top: 10px;
-      right: 30px;
+      left: 20px;
       width: 22px;
       height: 22px;
-      cursor: pointer;
       color: rgba(141, 144, 155, 1);
+      opacity: 90%;
+    }
+  }
+  .loading-result {
+    padding-left: 12px;
+  }
+  .results {
+    padding-bottom: 3px;
+  }
+  .result-div {
+    position: absolute;
+    max-width: 36%;
+    width: 100%;
+    z-index: 50;
+    margin: 0 auto;
+    transform: translateX(83%);
+    background-color: white;
+    // border: 0.5px solid rgb(214, 211, 211);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+      rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    @include media(1030px) {
+      display: none;
+    }
+    @include media(450px) {
+      display: block;
+      max-width: 94%;
+      transform: translateX(0);
+    }
+    .result-result {
+      gap: 15px;
+      .car-name {
+        font-size: 12px;
+        color: rgb(34, 33, 33);
+      }
     }
   }
   .bottom-header {
@@ -251,6 +312,9 @@ $tablet_screen: 700px;
           border: 1px solid #e1e3e5;
           padding: 14px 27px 14px 16px;
           border-radius: 6px;
+          .active {
+            color: #ff5000;
+          }
           p {
             font-size: 14px;
             font-weight: 500;

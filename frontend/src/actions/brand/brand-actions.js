@@ -33,9 +33,9 @@ export const createNewBrand = async (data) => {
     brandFormData.append("photo", data?.image);
 
     const res = await apiClient(`/brand`, "POST", brandFormData, null, true);
-    return res.data;
+    return { result: res.data, success: true };
   } catch (error) {
-    return null;
+    return { result: null, success: false };
   }
 };
 
@@ -50,30 +50,43 @@ export const deleteBrand = async (id) => {
 
 export const updateBrand = async (id, data) => {
   try {
-    const formData = new FormData();
-    formData.append("photo", data?.image);
-    formData.append("prefix", "/brand");
-    const result = await apiClient(
-      `/file/upload`,
-      "POST",
-      formData,
-      null,
-      true
-    );
+    let photoId = null;
+    if (data?.image !== "h") {
+      const formData = new FormData();
+      formData.append("photo", data.image);
+      formData.append("prefix", "/brand");
+      const result = await apiClient(
+        `/file/upload`,
+        "POST",
+        formData,
+        null,
+        true
+      );
+      photoId = result?.data;
+    }
+
     const obj = {
-      photoId: result?.data,
       name: data?.name,
       id,
     };
+    if (photoId) obj.photoId = photoId;
 
     const brandFormData = new FormData();
     brandFormData.append("data", JSON.stringify(obj));
     brandFormData.append("prefix", "/brand");
-    brandFormData.append("photo", data?.image);
+
+    // Only append photo if it exists
+    if (data?.image !== "h") {
+      brandFormData.append("photo", data.image);
+    }
 
     const res = await apiClient(`/brand`, "PUT", brandFormData, null, true);
-    return res.data;
+    if (!res.error) {
+      return { result: res, success: true };
+    } else {
+      return { result: null, success: false };
+    }
   } catch (error) {
-    return null;
+    return { result: null, success: false };
   }
 };

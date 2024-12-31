@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const baseUrl = `http://localhost:8080/api/v1`;
+// export const baseUrl = `http://185.74.5.53/api/v1`;
+export const baseUrl = `http://185.74.5.53/api/v1`;
 
 export default function apiClient(url, method, data, param, header) {
   let token = localStorage.getItem("access_token");
@@ -24,12 +25,13 @@ export default function apiClient(url, method, data, param, header) {
     })
     .catch((err) => {
       if (err.response.status === 401) {
-        if (localStorage.getItem("refresh_token") === null) {
+        if (!localStorage.getItem("refresh_token")) {
           return {
             error: true,
             data: err.response.status,
           };
         }
+
         return axios({
           url:
             baseUrl +

@@ -1,4 +1,38 @@
+@mixin media($max_width) {
+  @media (max-width: $max_width) {
+    @content;
+  }
+}
+
 .my-cart {
+  .close-btn {
+    padding: 10px;
+    border: 1px solid;
+  }
+  .close-btn:hover {
+    background-color: grey;
+  }
+
+  .back-to {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 4px 6px;
+    border-radius: 20px;
+    display: none;
+    span {
+      font-size: 13px;
+    }
+    &:hover {
+      background-color: rgb(247, 247, 247);
+    }
+    @include media(500px) {
+      display: flex;
+    }
+  }
+
   .cart {
     font-family: sans-serif;
     max-width: 70rem;
@@ -20,7 +54,7 @@
       display: grid;
       grid-template-columns: 1.5fr 1fr;
       gap: 2rem;
-      margin-top: 4rem;
+      margin-top: 2rem;
       @media screen and (max-width: 750px) {
         grid-template-columns: 1fr;
       }
@@ -154,6 +188,11 @@
           font-size: 0.9rem;
         }
       }
+      .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
   }
   .order-summary {
@@ -194,6 +233,7 @@
       position: relative;
       display: flex;
       align-items: center;
+      flex-direction: column;
     }
 
     &__input {

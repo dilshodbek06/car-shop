@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineClose } from "react-icons/ai";
-import { GoPencil } from "react-icons/go";
 import Badge from "../../components/badge";
 import Loading from "../../../../components/loading/loading";
 import dateformat from "../../../../helpers/date-format";
@@ -8,12 +7,7 @@ import { deleteBrand } from "../../../../actions/brand/brand-actions";
 import toast from "react-hot-toast";
 import { baseUrl } from "../../../../helpers/apiClient";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  handleEditingItem,
-  handleIsEdit,
-  setCurrenPage,
-  toggleModalOpen,
-} from "../../../../redux/slices/brand/brandSlice";
+import { setCurrenPage } from "../../../../redux/slices/brand/brandSlice";
 import Pagination from "../../components/pagination";
 
 // eslint-disable-next-line react/prop-types
@@ -28,17 +22,11 @@ const BrandList = ({ loading, items, refresh }) => {
   const handleDelete = async (id) => {
     const result = await deleteBrand(id);
     if (result?.success) {
-      toast.success("Deleted success");
+      toast.success("Muvafaqqiyatli o'chirildi");
       refresh();
     } else {
-      toast.error("Something went wrong");
+      toast.error("Xatolik yuz berdi");
     }
-  };
-
-  const handleEdit = async (item) => {
-    dispatch(handleEditingItem(item));
-    dispatch(handleIsEdit());
-    dispatch(toggleModalOpen());
   };
 
   const handlePageChange = (page) => {
@@ -122,6 +110,7 @@ const BrandList = ({ loading, items, refresh }) => {
                           className="w-16 h-16 cursor-pointer"
                           src={getImage(item?.photo?.id, item?.photo?.prefix)}
                           alt="photo"
+                          loading="lazy"
                         />
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
@@ -135,12 +124,6 @@ const BrandList = ({ loading, items, refresh }) => {
                       </td>
                       <td className=" p-5 ">
                         <div className="flex items-center gap-1">
-                          <button
-                            onClick={() => handleEdit(item)}
-                            className="p-2 rounded-full  group transition-all duration-500  flex item-center hover:text-sky-600 hover:bg-gray-100"
-                          >
-                            <GoPencil size={20} />
-                          </button>
                           <button
                             onClick={() => handleDelete(item?.id)}
                             className="p-2 rounded-full  group transition-all duration-500  flex item-center hover:text-red-600 hover:bg-gray-100"
@@ -169,36 +152,3 @@ const BrandList = ({ loading, items, refresh }) => {
 };
 
 export default BrandList;
-
-{
-  /* <div className="px-3 py-4 flex justify-center border-2 border-red-600 overflow-x-auto">
-<table className="w-full px-2 md:px-0 text-md bg-white shadow-sm rounded mb-4">
-  <thead>
-    <tr className="border-b">
-      <th className="text-left p-3 px-5">№</th>
-      <th className="text-left p-3 px-5">Title</th>
-      <th className="text-left p-3 px-5">Description</th>
-      <th className="text-center p-3 px-5">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr className="border-b hover:bg-gray-100 bg-gray-50">
-      <td className="p-3 px-5">1</td>
-      <td className="p-3 px-5">Zapchat</td>
-      <td className="p-3 px-5">Lorem ipsum dolor sit amet.</td>
-      <td className="p-3 px-5 flex justify-end">
-        <button className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-2 px-2 rounded focus:outline-none focus:shadow-outline">
-          <GoPencil />
-        </button>
-        <button
-          type="button"
-          className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-        >
-          <AiOutlineClose />
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div> */
-}

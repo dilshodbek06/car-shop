@@ -40,10 +40,14 @@ $tablet_screen: 700px;
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: all 0.2s ease-in-out;
       cursor: pointer;
       img {
         width: 16px;
         height: 16px;
+      }
+      &:hover {
+        scale: 1.1;
       }
     }
   }
@@ -68,6 +72,10 @@ $tablet_screen: 700px;
       width: 100%;
       font-size: 14px;
       margin-top: 15px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
     }
     .rating-wrapper {
       margin-top: 8px;
@@ -95,6 +103,9 @@ $tablet_screen: 700px;
       font-weight: 400;
       font-size: 16px;
       margin-top: 8px;
+      &:hover {
+        background-color: rgb(218, 218, 218);
+      }
     }
   }
 }

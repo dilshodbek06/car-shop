@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineClose } from "react-icons/ai";
-import { GoPencil } from "react-icons/go";
 import Badge from "../../components/badge";
 import { deleteCar } from "../../../../actions/cars//cars-actions";
 import toast from "react-hot-toast";
@@ -14,10 +13,10 @@ const CarList = ({ refresh, loading, items }) => {
   const handleDelete = async (id) => {
     const result = await deleteCar(id);
     if (result?.success) {
-      toast.success("Deleted success");
+      toast.success("Muvafaqqiyatli o'chirildi");
       refresh();
     } else {
-      toast.error("Something went wrong");
+      toast.error("Xatolik yuz berdi");
     }
   };
 
@@ -102,6 +101,7 @@ const CarList = ({ refresh, loading, items }) => {
                           className="w-16 h-16 cursor-pointer"
                           src={getImage(item?.photo?.id)}
                           alt="photo"
+                          loading="lazy"
                         />
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
@@ -118,9 +118,6 @@ const CarList = ({ refresh, loading, items }) => {
                       </td>
                       <td className=" p-5 ">
                         <div className="flex items-center gap-1">
-                          <button className="p-2 rounded-full  group transition-all duration-500  flex item-center hover:text-sky-600 hover:bg-gray-100">
-                            <GoPencil size={20} />
-                          </button>
                           <button
                             onClick={() => handleDelete(item?.id)}
                             className="p-2 rounded-full  group transition-all duration-500  flex item-center hover:text-red-600 hover:bg-gray-100"

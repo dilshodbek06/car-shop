@@ -3,20 +3,39 @@ import photo from "../../images/brand.svg";
 import { useForm } from "react-hook-form";
 import { handleLogin } from "../../actions/auth/auth";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const onSubmit = async (data) => {
     setLoading(true);
     try {
       const result = await handleLogin(data);
-      localStorage.setItem("access_token", result?.access_token);
-      navigate("/");
+      if (result === 401) {
+        toast.error("Telefon raqam yoki parol noto'g'ri.");
+      } else {
+        localStorage.setItem("access_token", result?.access_token);
+        if (result?.refresh_token) {
+          localStorage.setItem("refresh_token", result?.refresh_token);
+        }
+        login(result?.roles?.[0]?.name);
+        navigate(
+          result?.roles?.[0]?.name === "ROLE_SUPER_ADMIN"
+            ? "/admin/users"
+            : result?.roles?.[0]?.name === "ROLE_ADMIN"
+            ? "/admin"
+            : result?.roles?.[0]?.name === "ROLE_OPERATOR"
+            ? "/admin/orders-new"
+            : "/"
+        );
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Login failed:", error);
     } finally {
       setLoading(false);
     }

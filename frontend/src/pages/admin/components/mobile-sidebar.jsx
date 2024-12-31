@@ -9,7 +9,9 @@ import { TbBrandOffice } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { LiaCarSideSolid } from "react-icons/lia";
 import { GiCartwheel } from "react-icons/gi";
-import { FiShoppingBag } from "react-icons/fi";
+import { TbShoppingCart, TbClock, TbCheck, TbX } from "react-icons/tb";
+import { FaUsers } from "react-icons/fa6";
+import { useAuth } from "../../../context/AuthContext";
 
 const adminRoutes = [
   {
@@ -42,16 +44,49 @@ const adminRoutes = [
     label: "Advertisement",
     href: "/admin/advertisement",
   },
+];
+const operatorRoutes = [
   {
-    icon: FiShoppingBag,
-    label: "Orders",
-    href: "/admin/orders",
+    icon: TbShoppingCart, // Icon for "New Orders"
+    label: "New Orders",
+    href: "/admin/orders-new",
+  },
+  {
+    icon: TbClock, // Icon for "Inprogress Orders"
+    label: "Inprogress Orders",
+    href: "/admin/orders-progress",
+  },
+  {
+    icon: TbCheck, // Icon for "Completed Orders"
+    label: "Completed Orders",
+    href: "/admin/orders-completed",
+  },
+  {
+    icon: TbX, // Icon for "Declined Orders"
+    label: "Declined Orders",
+    href: "/admin/orders-declined",
+  },
+];
+
+const superAdminRoutes = [
+  {
+    icon: FaUsers,
+    label: "Users",
+    href: "/admin/users",
   },
 ];
 
 // eslint-disable-next-line react/prop-types
 const MobileSidebar = ({ open, handleClose }) => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const routes =
+    user?.role === "ROLE_SUPER_ADMIN"
+      ? superAdminRoutes
+      : user?.role === "ROLE_OPERATOR"
+      ? operatorRoutes
+      : adminRoutes;
 
   return (
     <div>
@@ -65,12 +100,12 @@ const MobileSidebar = ({ open, handleClose }) => {
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40" />
           <Drawer.Content className="bg-white flex flex-col rounded-t-[10px] h-full max-w-sm w-full border mt-24 fixed bottom-0 right-0">
-            <div className="p-4 bg-white flex-1 h-full">
+            <div className="p-4 pr-2  bg-white flex-1 h-full">
               <div className="mx-auto">
                 <Drawer.Title className="hidden"></Drawer.Title>
                 <Drawer.Description className="hidden"></Drawer.Description>
               </div>
-              <div className="h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm">
+              <div className="h-full  flex flex-col overflow-y-auto bg-white shadow-sm">
                 <div className="py-5 pl-3 flex justify-between items-center">
                   <Logo />
                   <button
@@ -126,7 +161,7 @@ const MobileSidebar = ({ open, handleClose }) => {
                 </div>
                 <div className="flex flex-col w-full">
                   <div className="flex flex-col w-full">
-                    {adminRoutes.map((route) => (
+                    {routes.map((route) => (
                       <SidebarItem
                         key={route.href}
                         icon={route.icon}

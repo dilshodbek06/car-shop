@@ -1,20 +1,25 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineClose } from "react-icons/ai";
-import { GoPencil } from "react-icons/go";
 import Loading from "../../../../components/loading/loading";
 import { deleteAdsText } from "../../../../actions/ads/text/ads-text-actions";
 import toast from "react-hot-toast";
 
-const AdsTextTable = ({ loading, items, refresh }) => {
+import { getImage } from "../../../../helpers/get-image";
+
+const AdsTextTable = ({ loading, textData, imagesData, refresh }) => {
+  //
+  const combinedData = textData.map((textItem, index) => ({
+    ...textItem,
+    imageId: imagesData[index]?.attachment?.id || null, // Match image by index or set to null
+  }));
+
   const handleDelete = async (id) => {
     const result = await deleteAdsText(id);
-    console.log(result);
-
     if (result?.success) {
-      toast.success("Deleted success");
+      toast.success("Muvafaqqiyatli o'chirildi");
       refresh();
     } else {
-      toast.error("Something went wrong");
+      toast.error("Xatolik yuz berdi");
     }
   };
 
@@ -41,6 +46,12 @@ const AdsTextTable = ({ loading, items, refresh }) => {
                       scope="col"
                       className="p-5 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"
                     >
+                      Image
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"
+                    >
                       Text
                     </th>
 
@@ -53,7 +64,7 @@ const AdsTextTable = ({ loading, items, refresh }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300">
-                  {items?.length <= 0 && (
+                  {combinedData?.length <= 0 && (
                     <tr>
                       <td
                         colSpan={6}
@@ -63,7 +74,7 @@ const AdsTextTable = ({ loading, items, refresh }) => {
                       </td>
                     </tr>
                   )}
-                  {items?.map((item, ind) => (
+                  {combinedData?.map((item, ind) => (
                     <tr
                       key={ind}
                       className="bg-white transition-all duration-500 hover:bg-gray-50"
@@ -72,17 +83,19 @@ const AdsTextTable = ({ loading, items, refresh }) => {
                         {ind + 1}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                        <img
+                          className="w-16 h-16 cursor-pointer"
+                          src={getImage(item?.imageId)}
+                          alt="image"
+                          loading="lazy"
+                        />
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
                         {item?.title}
                       </td>
 
                       <td className=" p-5 ">
                         <div className="flex items-center gap-1">
-                          <button
-                            // onClick={() => handleEdit(item)}
-                            className="p-2 rounded-full  group transition-all duration-500  flex item-center hover:text-sky-600 hover:bg-gray-100"
-                          >
-                            <GoPencil size={20} />
-                          </button>
                           <button
                             onClick={() => handleDelete(item?.id)}
                             className="p-2 rounded-full  group transition-all duration-500  flex item-center hover:text-red-600 hover:bg-gray-100"

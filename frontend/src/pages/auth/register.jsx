@@ -9,12 +9,10 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     if (data.password !== data.confirmPassword) {
-      alert("Password not match");
-      toast.error("Password don't match the same");
+      toast.error("Parol bir xil emas");
       return;
     }
-    const res = await handleRegister(data);
-    console.log(res.data);
+    await handleRegister(data);
   };
 
   return (

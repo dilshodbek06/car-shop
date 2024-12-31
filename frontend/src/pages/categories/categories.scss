@@ -14,6 +14,7 @@ $tablet_screen: 700px;
   }
   @include media(450px) {
     padding-bottom: 60px;
+    margin-top: 0px;
   }
   .container {
     padding: 10px 10px;
@@ -32,11 +33,12 @@ $tablet_screen: 700px;
         grid-template-columns: auto auto auto;
       }
       @include media($tablet_screen) {
-        grid-template-columns: auto auto;
+        grid-template-columns: auto auto auto;
       }
       @include media(450px) {
         margin-top: 16px;
-        gap: 15px;
+        column-gap: 5px;
+        row-gap: 5px;
       }
     }
   }

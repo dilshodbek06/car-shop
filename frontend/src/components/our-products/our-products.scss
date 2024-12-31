@@ -102,6 +102,11 @@ $tablet_screen: 700px;
         font-size: 16px;
         font-weight: 400;
         cursor: pointer;
+        transition: all 300ms ease;
+        &:hover {
+          background-color: #ee6729;
+          color: white;
+        }
       }
     }
   }
